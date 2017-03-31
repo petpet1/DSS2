@@ -27,20 +27,19 @@ public class Main extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String oppMove = sessionBean.getOppMove();
+        String move = sessionBean.getMove();
+        response.addHeader("OppMove", oppMove);
+        response.addHeader("Move", move);
+        String result = getResult(oppMove, move);
+        response.addHeader("Result", result);
         
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Main</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Main at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        request.getRequestDispatcher("game.jsp").forward(request, response);
+
+    }
+    
+    private String getResult(String om, String m) {
+        return "You won!";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

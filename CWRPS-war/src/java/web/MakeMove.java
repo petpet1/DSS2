@@ -19,18 +19,19 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author petter
  */
-@WebServlet(name = "StartGame", urlPatterns = {"/startgame"})
-public class StartGame extends HttpServlet {
+@WebServlet(name = "MakeMove", urlPatterns = {"/makemove"})
+public class MakeMove extends HttpServlet {
 
     @EJB
     private SessionBeanRemote sessionBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
-        if (sessionBean.ready()) {
-            request.getRequestDispatcher("game.jsp").forward(request, response);
-        }
+        
+        String username="UserA"; //request.getParameter("username");
+        String move = request.getParameter("rsv");
+        sessionBean.makeMove(username, move);
+        request.getRequestDispatcher("game.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

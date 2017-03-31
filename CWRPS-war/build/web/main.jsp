@@ -16,8 +16,8 @@
             // Set refresh, autoload time as 5 seconds
             response.setIntHeader("Refresh", 5);
             // Get current time
-            out.println("<h1> Welcome " + response.getHeader("username")+ "</h1>");
-            out.println("Your current score is: " + response.getHeader("score"));
+            out.println("<h1> Welcome " + response.getHeader("Username")+ "</h1>");
+            out.println("Your current score is: " + response.getHeader("Score"));
          %>
     <form method="post" action="startgame">
         Click here to start a game:

@@ -25,5 +25,7 @@ public interface SessionBeanRemote {
     public String getMove();
 
     public void makeMove(String username, String m);
+
+    public boolean ready();
     
 }

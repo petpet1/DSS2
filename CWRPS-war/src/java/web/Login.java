@@ -29,6 +29,7 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
         String username=request.getParameter("username");
         String password = request.getParameter("password");
         boolean credentials=sessionBean.login(username, password);

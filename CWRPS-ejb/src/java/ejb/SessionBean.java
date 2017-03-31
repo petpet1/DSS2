@@ -11,8 +11,10 @@ public class SessionBean implements SessionBeanRemote {
     String move;
     String oppMove;
     int playersReady = 0;
-   
     
+    public boolean ready() {
+        return true;
+    }
     
     @Override
     public String sendName(String name) {
