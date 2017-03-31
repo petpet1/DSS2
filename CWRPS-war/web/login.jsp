@@ -1,28 +1,7 @@
-<!DOCTYPE html>
-<%@page import="java.util.*" %>
-
-<html>
-    <head>
-        <title>Log-In</title>
-        <meta http-equiv=Content-Type content="text/html">
-    </head>
-
-    <body>
-
+<%@ include file="header.jsp" %>
     <form method="post" action="login">
-
-    <table width="100%">
-        <tr>
-            <td>Username:</td>
-            <td><input type="text" name="username"></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type="text" name="password"></td>
-        </tr>
-        <tr>
-        <td><input type="submit"/></td>
-    </table>
+        Username : <input type="text" name="username"> ("playerA" or "playerB") <br/>
+        Password : <input type="password" name="password"> (same as username) <br/>
+        <input type="submit" value="Login"/>
     </form>
-    </body>
-</html>
+<%@ include file="footer.jsp" %>

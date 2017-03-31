@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package web;
 
 import ejb.SessionBeanRemote;
@@ -27,6 +22,8 @@ public class Main extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username=request.getParameter("username");
+        response.addHeader("username", username);
+
         String opponent;
         if(username.equals("playerA")){
             opponent = "playerB";
@@ -35,23 +32,51 @@ public class Main extends HttpServlet {
         }
             
         String move = sessionBean.getMove(username);
-        System.out.println("Here"+ move);
         String oppMove = sessionBean.getMove(opponent);
-
+        
+        if(oppMove.equals("NULL")) {
+            response.addHeader("status", "Your opponent has not picked a move yet");
+            request.getRequestDispatcher("game.jsp").forward(request, response);
+            return;
+        }
+        
+        String result = getResult(username, oppMove, move);
+        
         response.addHeader("OppMove", oppMove);
         response.addHeader("Move", move);
-        String result = getResult(oppMove, move);
         response.addHeader("Result", result);
-        response.addHeader("username", username);
-        
         request.getRequestDispatcher("game.jsp").forward(request, response);
     }
     
-    private String getResult(String om, String m) {
-        return "You won!";
+     private String getResult(String username, String om, String m) { 
+        int yourNum = -1;
+        int opNum = -1;
+        
+        if(m.equals("Rock"))
+            yourNum = 0;
+        if(m.equals("Paper"))
+            yourNum = 1;
+        if(m.equals("Scissors"))
+            yourNum = 2;
+        
+        if(om.equals("Rock"))
+            opNum = 0;
+        if(om.equals("Paper"))
+            opNum = 1;
+        if(om.equals("Scissors"))
+            opNum = 2;
+        if(yourNum == opNum)
+            return "Tie";
+        
+        if((yourNum) == (opNum+1)%3){
+            int currentScore = sessionBean.getUserScore(username);
+            sessionBean.updateScore(username, currentScore);
+            return "You won!";
+        }
+        return "You Lost!";
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+     
+   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

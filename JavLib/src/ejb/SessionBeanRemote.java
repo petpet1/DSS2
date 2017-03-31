@@ -21,5 +21,9 @@ public interface SessionBeanRemote {
     public void makeMove(String username, String m);
 
     public String getMove(String username);
+
+    public void updateScore(String username, int currentScore);
+
+    public boolean isOpponentReady();
     
 }

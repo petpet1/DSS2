@@ -26,10 +26,23 @@ public class StartGame extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String username=request.getParameter("username");
         response.addHeader("username", username);
-        if (true) {
+        String opponent;
+        if(username.equals("playerA")){
+            opponent = "playerB";
+        } else {
+            opponent = "playerA";
+        }
+        //Reset moves
+        sessionBean.makeMove(username, "NULL");
+        sessionBean.makeMove(opponent, "NULL");
+        if (sessionBean.isOpponentReady()) {
             request.getRequestDispatcher("game.jsp").forward(request, response);
+        } else {
+            response.addHeader("status", "No opponents logged in");
+            request.getRequestDispatcher("main.jsp").forward(request, response);   
         }
     }
 
