@@ -5,7 +5,6 @@
  */
 package web;
 
-import ejb.SessionBeanRemote;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;

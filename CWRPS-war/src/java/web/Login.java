@@ -33,9 +33,10 @@ public class Login extends HttpServlet {
         String username=request.getParameter("username");
         String password = request.getParameter("password");
         boolean credentials=sessionBean.login(username, password);
+        
         String score = Integer.toString(sessionBean.getUserScore(username));
         response.addHeader("Score", score); 
-        response.addHeader("Username", username);
+        response.addHeader("username", username);
         
         if(credentials) {
             request.getRequestDispatcher("main.jsp").forward(request, response);

@@ -7,7 +7,6 @@ package web;
 
 import ejb.SessionBeanRemote;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,8 +26,9 @@ public class StartGame extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
-        if (sessionBean.ready()) {
+        String username=request.getParameter("username");
+        response.addHeader("username", username);
+        if (true) {
             request.getRequestDispatcher("game.jsp").forward(request, response);
         }
     }

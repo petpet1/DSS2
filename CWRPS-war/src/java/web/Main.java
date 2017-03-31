@@ -7,7 +7,6 @@ package web;
 
 import ejb.SessionBeanRemote;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,15 +26,25 @@ public class Main extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String oppMove = sessionBean.getOppMove();
-        String move = sessionBean.getMove();
+        String username=request.getParameter("username");
+        String opponent;
+        if(username.equals("playerA")){
+            opponent = "playerB";
+        } else {
+            opponent = "playerA";
+        }
+            
+        String move = sessionBean.getMove(username);
+        System.out.println("Here"+ move);
+        String oppMove = sessionBean.getMove(opponent);
+
         response.addHeader("OppMove", oppMove);
         response.addHeader("Move", move);
         String result = getResult(oppMove, move);
         response.addHeader("Result", result);
+        response.addHeader("username", username);
         
         request.getRequestDispatcher("game.jsp").forward(request, response);
-
     }
     
     private String getResult(String om, String m) {

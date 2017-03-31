@@ -14,18 +14,12 @@ import javax.ejb.Remote;
 @Remote
 public interface SessionBeanRemote {
 
-    String sendName(String name);
-
     boolean login(String username, String password);
 
     int getUserScore(String username);
-
-    public String getOppMove();
-
-    public String getMove();
-
+    
     public void makeMove(String username, String m);
 
-    public boolean ready();
+    public String getMove(String username);
     
 }
